@@ -112,7 +112,7 @@ export const Item = ({
       {!!id && (
         <div
           role="button"
-          className="h-full rounded-sm hover:bg-neutral-300 dark:bg-neutral-600 mr-1"
+          className="h-full rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 mr-1"
           onClick={handleExpand}
         >
           <ChevronIcon className="size-4 shrink-0 text-muted-foreground" />
@@ -146,7 +146,10 @@ export const Item = ({
               side="right"
               forceMount
             >
-              <DropdownMenuItem onClick={onArchive} className="cursor-pointer text-red-500">
+              <DropdownMenuItem
+                onClick={onArchive}
+                className="cursor-pointer text-red-500"
+              >
                 <Trash className="size-4 mr-2" />
                 Delete
               </DropdownMenuItem>
