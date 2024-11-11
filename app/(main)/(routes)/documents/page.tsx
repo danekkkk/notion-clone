@@ -6,24 +6,25 @@ import { Button } from "@/components/ui/button";
 import { PlusCircleIcon } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import {toast} from "sonner"
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const DocumentsPatge = () => {
   const { user } = useUser();
+  const router = useRouter();
   const create = useMutation(api.documents.create);
 
   const onCreate = () => {
     const promise = create({
-      title: "Untitled"
-    })
+      title: "Untitled",
+    }).then((documentId) => router.push(`/documents/${documentId}`));
 
     toast.promise(promise, {
       loading: "Creating a new note...",
       success: "New note created!",
-      error: "Failed to create a new note."
-    })
-
-  }
+      error: "Failed to create a new note.",
+    });
+  };
 
   return (
     <div className="h-full flex flex-col items-center justify-center space-y-4">
@@ -41,7 +42,9 @@ const DocumentsPatge = () => {
         alt="Empty"
         className="hidden dark:block"
       />
-      {user && user.firstName && <h2>Welcome to {user.firstName}&apos;s Notion</h2>}
+      {user && user.firstName && (
+        <h2>Welcome to {user.firstName}&apos;s Notion</h2>
+      )}
       <Button onClick={onCreate}>
         <PlusCircleIcon className="size-4 mr-2" />
         Create a note

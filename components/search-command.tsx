@@ -59,24 +59,26 @@ export const SearchCommand = () => {
       <CommandInput placeholder={`Search ${user?.fullName}'s Notion...`} />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Documents">
-          {documents?.map((document) => (
-            <CommandItem
-              key={document._id}
-              value={`${document._id}-${document.title}`}
-              title={document.title}
-              onSelect={onSelect}
-              className="cursor-pointer"
-            >
-              {document.icon ? (
-                <p className="mr-2 text-[18px]">{document.icon}</p>
-              ) : (
-                <File className="mr-2 size-4" />
-              )}
-              <span>{document.title}</span>
-            </CommandItem>
-          ))}
-        </CommandGroup>
+        {documents && documents?.length > 0 && (
+          <CommandGroup heading="Documents">
+            {documents?.map((document) => (
+              <CommandItem
+                key={document._id}
+                value={`${document._id}-${document.title}`}
+                title={document.title}
+                onSelect={onSelect}
+                className="cursor-pointer"
+              >
+                {document.icon ? (
+                  <p className="mr-2 text-[18px]">{document.icon}</p>
+                ) : (
+                  <File className="mr-2 size-4" />
+                )}
+                <span>{document.title}</span>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        )}
       </CommandList>
     </CommandDialog>
   );
